@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PayPal Application Engineer UI Take Home Exercise - William Jiang</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.css" />
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css"  />
+    <link rel="stylesheet" href="../public/stylesheets/style.css"/>
+</head>
+<body>
+<div class="container">
+    <div class="well well-lg">
+        <h1> What are we Doing? </h1>
+    </div>
+    <section>
+        <h2><a href="">Send Money</a></h2>
+    </section>
+    <section>
+        <h2><a href="">View Transaction History</a></h2>
+    </section>
+</div>
+
+<div class="container">
+    <div class="wrap">
+        <div class="buffer"></div>
+    </div>
+    <div class="well well-lg">
+        <h1>Send Money</h1>
+    </div>
+    <div class="form-group has-feedback">
+        <input type="email" class="form-control" name="email" placeholder="To: uie@paypal.com" autofocus required />
+        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+    </div>
+    <div class="form-group has-feedback">
+        <input type="money" class="form-control" name="amount" placeholder="Amount: $1.00">
+        <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+    </div>
+    <div class="form-group">
+        <textarea placeholder="Message (optional):"></textarea>
+    </div>
+    <div class="form-group has-feedback">
+        <label class="control-label">What's this payment for?</label>
+        <input type="radio" class="form-control" name="message" value="1" />I'm sending money to family or friends
+        <input type="radio" class="form-control" name="message" value="2" />I'm paying for goods or services
+    </div>
+
+    <div class="well well-large">
+        <button>Clear</button>
+        <button id="overlay">Next</button>
+    </div>
+</div>
+
+<div class="container">
+    <div class="well well-lg">
+        <h1>Send Money</h1>
+    </div>
+    <div class="row">
+        <h2>You have sent $1.00 USD to John Doe!</h2>
+    </div>
+
+    <div class="well well-large">
+        <button>Send Money</button>
+        <button>Transaction History</button>
+    </div>
+</div>
+
+<div class="container">
+    <div class="well well-lg">
+        <h1>Transaction History</h1>
+    </div>
+    <div class="row">
+        <table class="table table-striped table-hover">
+            <tr>
+                <td>12/5/2013</td>
+                <td>John Smith</td>
+                <td>$123.45</td>
+            </tr>
+            <tr>
+                <td>12/1/2013</td>
+                <td>Starbucks</td>
+                <td>$3.34</td>
+            </tr>
+            <tr>
+                <td>11/22/2013</td>
+                <td>Jane Jones</td>
+                <td>$10.00</td>
+            </tr>
+            <tr>
+                <td>11/6/2013</td>
+                <td>Applebee's</td>
+                <td>$35.42</td>
+            </tr>
+            <tr>
+                <td>10/24/2013</td>
+                <td>Toys R Us</td>
+                <td>$1,239.34</td>
+            </tr>
+            <tr>
+                <td>9/3/2013</td>
+                <td>Apple</td>
+                <td>$199.00</td>
+            </tr>
+            <tr>
+                <td>7/5/2013</td>
+                <td>Ebay</td>
+                <td>$222.50</td>
+            </tr>
+            <tr>
+                <td>11/7/2012</td>
+                <td>Microsoft Corp</td>
+                <td>$99.00</td>
+            </tr>
+            <tr>
+                <td>10/5/2012</td>                                                          oo;
+                <td>Jamba Juice</td>
+                <td>$1.00</td>
+            </tr>
+            <tr>
+                <td>12/05/2013</td>
+                <td>What is it?</td>
+                <td>$123.45</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="well well-large">
+        <button>Back</button>
+    </div>
+</div>
+
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $('#overlay').click(function() {
+            $('div.wrap').show();
+            $('div.buffer').show();
+        });
+    })
+</script>
+</body>
+</html>

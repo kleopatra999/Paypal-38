@@ -1,0 +1,178 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.bg-11{
+    background-color: #4A3218;
+    height: 200px;
+    margin-bottom: -20px;
+    border: 5px solid #020000;
+}
+.bg-11 h2 {
+    color: #F6F5F1;
+    text-align: center;
+    vertical-align: middle;
+    margin: auto;
+    padding-top:45px;
+    font-size: 45px;
+}
+section.bg-12{
+    background-color: #F3EAE3;
+    height: 560px;
+    border: 5px solid #020000;
+}
+section.bg-12 h2 {
+    background-color: #DFDFDF;
+    height: 180px;
+    width: 80%;
+    color: #414141;
+    border: 2px solid #EBE9E6;
+    text-align: center;
+    box-shadow: 6px 6px 5px #8B8B8A;
+    border-radius:8px;
+    margin: 40px auto;
+    padding: 60px;
+}
+section.bg-12 h2 a {
+    color: #5D5D5D;
+    font-weight: bolder;
+    font-size: 45px;
+}
+/*
+section.bg-12:first-child {
+    margin-top: 40px;
+    background-color: #392711;
+}
+*/
+.bg-13{
+    background-color: #3D2911;
+    height: 160px;
+    border: 5px solid #020000;
+    margin-top:-10px;
+}
+
+/******* Page 2 *********/
+.bg-21{
+    background-color: #4A3218;
+    height: 120px;
+    margin-bottom: -20px;
+    border: 5px solid #020000;
+}
+.bg-21 h2 {
+    color: #F6F5F1;
+    text-align: center;
+    vertical-align: middle;
+    margin: auto;
+    padding-top:20px;
+    font-size: 40px;
+}
+form#form_send_money {
+    background-color: #F3EAE3;
+    height: 600px;
+    border: 5px solid #020000;
+}
+#form_send_money .form-control {
+    width: 80%;
+    margin: 0 auto;
+    height: 60px;
+    font-weight: bolder;
+    font-size:1.5em;
+    background-color: #FAF9F5;
+    border: 2px solid #3A3735;
+    box-shadow: 2px 2px 1px #8B8B8A;
+    border-radius:8px;
+}
+#form_send_money input[name="amount"].form-control {
+    display: inline !important;
+    width:60%;
+    margin-left: 87px;
+}
+#form_send_money select.form-control {
+    display: inline !important;
+    width: 20%;
+}
+#form_send_money textarea.form-control {
+    height: 90px;
+}
+#form_send_money .text {
+    height: 50px;
+    font-weight: bolder;
+    font-size:1.5em;
+    background-color: #FAF9F5;
+    padding: 20px;
+}
+#form_send_money p.text {
+    margin-left: 94px;
+}
+#form_send_money .box4 {
+    border: 2px solid #2C2B2B;
+    border-radius:8px;
+    padding: 30px 26px;
+    color: #5D5D5D;
+    font-weight: bolder;
+    margin-left:10px;
+}
+#form_send_money .control-label input[type="radio"] {
+    float: right !important:
+}
+.bg-23{
+    background-color: #3D2911;
+    margin-top: 80px;
+    width: 101%;
+    margin-left: -5px;
+    border: 5px solid #020000;
+}
+.bg-23 .box3 {
+    background-color: #DFDFDF;
+    color: #414141;
+    border: 2px solid #EBE9E6;
+    text-align: center;
+    box-shadow: 6px 6px 5px #8B8B8A;
+    border-radius:8px;
+    padding: 30px;
+    margin-right: 100px;
+    color: #5D5D5D;
+    font-weight: bolder;
+    font-size: 28px;
+    width: 300px;
+    margin-left:30px;
+}
+
+.wrap {
+    width:1170px;
+    height:800px;
+    position:absolute;
+    background: #000000;
+    opacity: 0.5;
+    z-index: 10;
+    display:none;
+    margin: 0 -20px;
+}
+.buffer {
+    width: 32px;
+    background: url('../images/ajax-loader.gif');
+    height: 32px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    display:none;
+}
+
+
+
+.bgtext {
+    position: relative;
+}
+.bgtext:after {
+    content: "Background text";
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+section {
+    padding-top: 40px;
+    padding-bottom: 60px;
+}

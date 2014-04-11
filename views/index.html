@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PayPal Application Engineer UI Take Home Exercise - William Jiang</title>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.css" />
+    <link rel="stylesheet" href="stylesheets/style.css"/>
+</head>
+<body>
+<div class="container">
+</div>
+
+<script type="text/template" id="initial_screen">
+    <section class="well well-lg bg-11">
+        <h2> What are we Doing? </h2>
+    </section>
+    <section class="bg-12">
+        <h2><a href="#new" class="new">Send Money</a></h2>
+        <h2><a class="view" href="/paypal/list/">View Transaction History</a></h2>
+    </section>
+    <section class="well well-lg bg-13">
+    </section>
+    </div>
+
+    <script type="text/template" id="sendMoney_loadScreen">
+        <div class="wrap">
+            <div class="buffer"></div>
+        </div>
+        <div class="well well-lg bg-21">
+            <h2>Send Money</h2>
+        </div>
+        <form id="form_send_money" role="form" method="POST">
+            <div class="form-group">
+                <label class="control-label"></label>
+                <input type="email" class="form-control bgtext" name="email" placeholder="To: uie@paypal.com" autofocus required />
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="name" placeholder="To Whom: John Smith" />
+            </div>
+            <div class="form-group">
+                <label class="control-label"></label>
+                <input type="text" class="form-control" name="amount" placeholder="Amount: $1.00" required />
+                <select class="form-control" name="options">
+                    <option value="USD">USD</option>
+                    <option value="EUR">EUR</option>
+                    <option value="JPY">JPY</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <textarea placeholder="Message (optional):" class="form-control" rows="3" name="message"></textarea>
+            </div>
+            <div class="form-group">
+                <label class="control-label"><p class="text">What's this payment for?</p>
+                    <div class="box4">
+                        <input type="radio" name="payFor" value="I am sending money to family or friends" />
+                        <span class="text"> I'm sending money to family or friends</span>
+                        <input type="radio" name="payFor" value="I am paying for goods or services" />
+                        <span class="text">I'm paying for goods or services</span>
+                    </div>
+                </label>
+            </div>
+
+            <section class="well well-large bg-23">
+                <input type="reset" class="box3" value="Clear" />
+                <button type="submit" class="box3" id="overlay">Next</button>
+            </section>
+        </form>
+    </script>
+
+    <script type="text/template" id="success_screen">
+            <section class="well well-lg bg-21">
+            <h2>Send Money</h2>
+            </section>
+    <section class="bg-12">
+            <h2>You have sent <%= data.amount %> to <%= data.name ? data.name : data.email %>!</h2>
+            </section>
+
+            <section class="well well-large bg-23">
+            <button id="button_send_money"  class="box3" >Send Money</button>
+    <button id="button_transaction_history" class="box3">Transaction History</button>
+    </section>
+</script>
+
+<script type="text/template" id="transaction_history_screen">
+    <div class="well well-lg bg-21">
+        <h2>Transaction History</h2>
+    </div>
+    <div class="row">
+        <table class="table table-striped table-hover">
+            <% _.each(data, function(res) { %>
+            <tr>
+                <td><%= res.TransactionAt.replace(/T.*$/, '') %></td>
+                <td><%= res.name %></td>
+                <td><%= res.amount %></td>
+            </tr>
+            <% }); %>
+        </table>
+    </div>
+
+    <div class="well well-large  bg-23">
+        <button><a href="#home" class="home box3">Back</a></button>
+    </div>
+</script>
+
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min.js"></script>
+<script type="text/javascript" src="javascripts/main.js"></script>
+
+<script type="text/javascript">
+    $(function() {
+        $('div.container').html($('#initial_screen').html()).show();
+
+        //$('a.new').click(function(e) {}
+        $('div.container').on('click', 'a.new, #button_send_money', function(e) {
+            e.preventDefault();
+            var template =  $('#sendMoney_loadScreen').html();
+            $('div.container').hide().html(template).fadeIn(500);
+        });
+
+        $('div.container').on('change', 'input[name="email"]', function(e) {
+            e.preventDefault();
+            var email = $(this).val();
+            if(checkEmail(email)) {
+                $(this).closest('div.form-group').addClass('has-error has-feedback');
+                $('<span class="glyphicon glyphicon-remove form-control-feedback"></span>').insertAfter(this);
+                $(this).select().focus();
+                return false;
+            }
+            else {
+                $(this).closest('div.form-group').removeClass('has-error has-feedback').addClass('has-success has-feedback');
+                $(this).next().remove();
+                $('<span class="glyphicon glyphicon-ok form-control-feedback"></span>').insertAfter(this);
+            }
+        });
+        $('div.container').on('blur', 'input[name="name"]', function(e) {
+            e.preventDefault();
+            var name = $(this).val();
+            if(! name) {
+                $(this).closest('div.form-group').addClass(' has-warning has-feedback');
+                $('<span class="glyphicon glyphicon-warning-sign form-control-feedback"></span>').insertAfter(this);
+                return false;
+            }
+            else {
+                $(this).closest('div.form-group').addClass('has-success has-feedback');
+
+                $('<span class="glyphicon glyphicon-ok form-control-feedback"></span>').insertAfter(this);
+            }
+        });
+
+        $('div.container').on('change', 'input[name="amount"]', function(e) {
+            e.preventDefault();
+            var m = $(this).val().trim();
+            if(m[0]==='$') m = m.substr(1);
+            var money = parseInt(m, 10);
+            if(! money || money < 0 ) {
+                $(this).closest('div.form-group').removeClass('has-error has-feedback').addClass('has-error has-feedback');
+                $('<span class="glyphicon glyphicon-remove form-control-feedback"></span>').insertAfter(this);
+                $(this).select().focus();
+                return false;
+            }
+            else {
+                var px = $('option:selected', 'select[name="options"]').val() + ' $';
+                $(this).val(px + money.toMoney());
+                $(this).closest('div.form-group').addClass('has-success has-feedback');
+                $('<span class="glyphicon glyphicon-ok form-control-feedback"></span>').insertAfter(this);
+            }
+        });
+
+        $('div.container').on('submit', 'form#form_send_money', function(e) {
+            e.preventDefault();
+            var data = $(this).serialize();
+            $.ajax({
+                url: "/paypal/create",
+                type: 'POST',
+                dataType: 'json',
+                data: data,
+                beforeSend: function( xhr ) {
+                    $('div.wrap').show().fadeIn(100);
+                    $('div.buffer').show().fadeIn(200);
+                }
+            })
+                    .done(function( data ) {
+                        console.log(data);
+                        sleep(3000); // for overlay effect.
+                        //$('div.wrap, div.buffer').hide();
+                        var mesg = $('#success_screen').html();
+                        var t = _.template(mesg, {data: data})
+                        $('div.container').hide().html(t).fadeIn(500);
+                    })
+                    .fail(function(jqXHR, textStatus ) {
+                        alert( "Request failed: " + textStatus );
+                    });
+        });
+
+        $('div.container').on('click', 'a.view, #button_transaction_history', function(e) {
+            var url = $(this).attr('href') ||  '/paypal/list/';
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'JSON'
+            })
+                    .done(function(data) {
+                        var list = $('#transaction_history_screen').html();
+                        var t = _.template(list, {data: data});
+                        $('div.container').hide().html(t).fadeIn(500);
+                    })
+                    .fail(function( jqXHR, textStatus ) {
+                        alert( "Request failed: " + textStatus );
+                    });
+            return false;
+        });
+
+        $('div.container').on('click', 'a.home', function(e) {
+            e.preventDefault();
+            $('div.container').html($('#initial_screen').html()).fadeIn(200);
+        });
+
+        $('div.container').on('click', 'select[name="options"]', function(e) {
+            var n =  $('option:selected', 'select[name="options"]').val() + ' $';
+            var m = $('input[name="amount"]');
+            var t = m.val().replace(/^\w{0,3}\s*\$/, n);
+            m.val(t);
+            return false;
+        });
+    });
+
+</script>
+</body>
+</html>
